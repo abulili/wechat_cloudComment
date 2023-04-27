@@ -1,0 +1,60 @@
+.header {
+  width: 100%;
+  height: 70rpx;
+  background-color: #ddd;
+  position: fixed;
+  top: 0;
+  text-align: center;
+}
+.container {
+  height: calc(115vh - 120rpx);
+  margin-top: 70rpx;
+  width: 100%;
+}
+.foot {
+  width: 100%;
+  background-color: #ddd;
+  position: fixed;
+  bottom: 0;
+  height: 120rpx;
+}
+
+.other-user{
+  width: 100%;
+  height: auto;
+  justify-content: flex-start;
+  display: flex;
+}
+.other-user p,
+.self-user p {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 300px;
+    height: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-left: 10px;
+}
+
+.other-user .friend{
+    background-color: #e6e6e6;
+}
+.self-user .self{
+  margin-left: 0;
+  background-color: #dda05b;
+  color: #fff;
+}
+.self-user {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: auto;
+}
+.self-user img {
+  margin-left: 10px;
+}
+.self-user p {
+  margin-left: 0;
+  background-color: #dda05b;
+  color: #fff;
+}

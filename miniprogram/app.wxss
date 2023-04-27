@@ -1,0 +1,12 @@
+/**index.wxss**/
+.container {
+  padding: 40rpx 15rpx;
+  border-bottom: 1rpx solid #ccc;
+}
+.container .header {
+  font-size: 50rpx;
+}
+.container image {
+  width: 50rpx;
+  height: 50rpx;
+}

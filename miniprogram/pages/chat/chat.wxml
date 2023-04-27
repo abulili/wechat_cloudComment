@@ -1,0 +1,24 @@
+<view class="header">
+  aaa建材王哥
+</view>
+<view class="container">
+    <view wx:for="{{6}}">
+    <view class="other-user">
+    <image src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg" alt=""></image>
+      <p class="friend">你好，有人在吗？</p>
+  </view>
+  <view class="other-user self-user">
+    <p class="self">请问有什么可以帮您？</p>
+    <image src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg" alt=""></image>
+  </view>
+  </view>
+</view>
+<view class="foot">
+  <van-cell-group>
+    <van-field value="{{ value }}" placeholder="请输入用户名" border="{{ false }}" bind:change="onChange" use-button-slot custom-style="display:table;margin:0 auto;">
+      <van-button slot="button" size="small" type="primary">
+        发送
+      </van-button>
+    </van-field>
+  </van-cell-group>
+</view>

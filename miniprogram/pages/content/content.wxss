@@ -1,0 +1,29 @@
+/* pages/content/content.wxss */
+.mainUser {
+  width: 200rpx;
+  height:200rpx;
+  border-radius: 30%;
+  margin-left: 5rpx;
+}
+.headerLeft {
+  float: left;
+}
+.headerRight {
+  margin: 10rpx;
+}
+.container {
+  width: 95%;
+}
+.things {
+  width: 95%;
+  display: table;
+  margin: 0 auto;
+}
+.otherComment image {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+.otherSmallComment {
+  margin-left: 50rpx;
+}

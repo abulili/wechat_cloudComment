@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/message/message",
+    "pages/chat/chat",
+    
+    "pages/content/content",
+    "pages/index/index",
+    "pages/self/self"
+  ],
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000",
+    "list":[
+      {
+        "pagePath": "pages/index/index",
+        "text": "index",
+        "iconPath": "./images/a.png",
+        "selectedIconPath": "./images/a.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "详情",
+        "iconPath": "./images/a.png",
+        "selectedIconPath": "./images/a.png"
+      },
+      {
+        "pagePath": "pages/self/self",
+        "text": "我的",
+        "iconPath": "./images/a.png",
+        "selectedIconPath": "./images/a.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "云开发 QuickStart",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-tabbar": "@vant/weapp/tabbar/index",
+    "van-tabbar-item": "@vant/weapp/tabbar-item/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index"
+  }
+}

@@ -1,0 +1,70 @@
+<view class="header">
+  <view class="headerLeft">
+    <image mode="widthFix" lazy-load src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg" class="mainUser"></image>
+  </view>
+  <view class="headerRight">
+    <view>
+      用户小里
+    </view>
+    <view>
+      2023-1-1 23:20:20
+    </view>
+  </view>
+</view>
+<view class="container">
+  neidasdjomldalmjnxvvvvvv sodasmxsax吃葡萄不图葡萄不
+</view>
+<view class="things">
+  <van-row gutter="60">
+    <van-col span="6">
+      <van-icon name="share" />
+    </van-col>
+    <van-col span="6">
+      <van-icon name="smile-comment" />
+    </van-col>
+    <van-col span="6">
+      <van-icon name="star" />
+    </van-col>
+    <van-col span="6">
+      <van-icon name="good-job" />
+    </van-col>
+  </van-row>
+</view>
+<view>
+  <van-cell-group>
+    <van-field value="{{ value }}" placeholder="请输入评论" border="{{ false }}" bind:change="onChange" custom-style="border: 1px solid #eee; border-radius: 8%; width:95%;display: table;margin: 0 auto;" />
+  </van-cell-group>
+  <button>csc</button>
+</view>
+<view>
+  <view>
+    按热度 按时间
+  </view>
+  <view class="otherComment" wx:for="{{3}}">
+    <view>
+      <view class="headerLeft">
+        <image mode="aspectFill" src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg"></image>
+      </view>
+      <view class="headerRight">
+        <view>
+          用户小里
+        </view>
+        <view>
+          2023-1-1 23:20:20
+        </view>
+        <view>
+         <view>
+          csdimfi着浓浓的的 难道是年开始csdimfi着浓浓的的 难道是年开始csdimfi着浓浓的的 难道是年开始csdimfi着浓浓的的 难道是年开始
+         </view>
+         <view wx:for="{{2}}" class="otherSmallComment">
+           aaa建材王哥：其他人的评论
+           <view>
+             日期
+           </view>
+         </view>
+        </view>
+      </view>
+    </view>
+  <van-divider />
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "cloud-tip-modal": "/components/cloudTipModal/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-search": "@vant/weapp/search/index"
+  }
+}

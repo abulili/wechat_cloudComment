@@ -1,0 +1,16 @@
+<view>
+  <van-swipe-cell right-width="{{ 65 }}">
+    <van-cell-group>
+      <van-cell title="系统信息" value="有未读消息，要判断一下" ></van-cell>
+    </van-cell-group>
+    <view slot="right">删除</view>
+  </van-swipe-cell>
+</view>
+<view wx:for="{{5}}">
+  <van-swipe-cell right-width="{{ 65 }}">
+    <van-cell-group>
+      <van-cell title="批发小子" value="有未读消息，要判断一下" ></van-cell>
+    </van-cell-group>
+    <view slot="right">删除</view>
+</van-swipe-cell>
+</view>
