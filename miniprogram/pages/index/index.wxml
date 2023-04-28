@@ -7,7 +7,10 @@
   shape="round"
   background="#f6f6f6"
 />
-<view wx:for="{{10}}" class="container">
-  <view class="header">标题-时间</view>
-  <view>内容-<image src="" mode=""/></view>
+<view class="container">
+  <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}" wx:for="{{dataList}}" class="news">
+    <view class="header">{{item.title}}<span>{{item.time.substr(0, 10)}}</span></view>
+    <view>{{item.content}}<image src="" mode=""/></view>
+    <van-divider />
+  </view>
 </view>

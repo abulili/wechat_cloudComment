@@ -1,0 +1,3 @@
+<van-button  round type="info" class="submit">发布</van-button>
+<van-button  round type="info" class="cancel">取消</van-button>
+<textarea value="" placeholder="输入你想说的"/>

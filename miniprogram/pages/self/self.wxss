@@ -1,7 +1,7 @@
 /* pages/self/self.wxss */
 image {
-  width: 300rpx;
-  height: 300rpx;
+  width: 200rpx;
+  height: 200rpx;
   border-radius: 50%;
   margin-top: 10rpx;
 }

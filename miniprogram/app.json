@@ -1,10 +1,11 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/like/like",
     "pages/message/message",
     "pages/chat/chat",
-    
     "pages/content/content",
-    "pages/index/index",
+    "pages/add/add",
     "pages/self/self"
   ],
   "tabBar": {
@@ -15,6 +16,12 @@
     "list":[
       {
         "pagePath": "pages/index/index",
+        "text": "index",
+        "iconPath": "./images/a.png",
+        "selectedIconPath": "./images/a.png"
+      },
+      {
+        "pagePath": "pages/like/like",
         "text": "index",
         "iconPath": "./images/a.png",
         "selectedIconPath": "./images/a.png"
@@ -47,6 +54,7 @@
     "van-tabbar-item": "@vant/weapp/tabbar-item/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-row": "@vant/weapp/row/index",
-    "van-col": "@vant/weapp/col/index"
+    "van-col": "@vant/weapp/col/index",
+    "van-divider": "@vant/weapp/divider/index"
   }
 }

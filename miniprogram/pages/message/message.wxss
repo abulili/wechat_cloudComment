@@ -9,3 +9,6 @@
   text-align: center;
   background-color: #f44;
 }
+.container {
+  margin-bottom: 120rpx;
+}

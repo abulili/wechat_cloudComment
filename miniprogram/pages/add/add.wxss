@@ -1,0 +1,19 @@
+.submit, .cancel {
+  margin-bottom: 20rpx;
+  margin-top: 20rpx;
+}
+.submit {
+  float: right;
+  margin-right: 17rpx;
+}
+.cancel {
+  float: left;
+  margin-left: 17rpx;
+}
+textarea {
+  border: 1px solid #eee;
+  width: 95%;
+  min-height: 300rpx;
+  margin: 0 auto;
+  margin-top: 10rpx;
+}

@@ -1,0 +1,9 @@
+<view class="container">
+  <view wx:for="{{5}}">
+  <van-cell-group>
+  <van-cell title="作者" value="时间" />
+  <van-cell title="内容" value="内容" label="tag" border="{{ false }}" />
+</van-cell-group>
+<van-divider hairline />
+</view>
+</view>

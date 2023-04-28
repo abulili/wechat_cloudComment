@@ -1,5 +1,5 @@
 <!--custom-tab-bar/index.wxml-->
-<van-tabbar active="{{ active }}" bind:change="onChange">
+<van-tabbar active="{{ active }}" bind:change="onChange" open-type="switchTab" style="height: 120rpx;">
   <van-tabbar-item icon="wap-home">主页</van-tabbar-item>
   <van-tabbar-item icon="star">收藏</van-tabbar-item>
   <van-tabbar-item icon="bell">消息</van-tabbar-item>
