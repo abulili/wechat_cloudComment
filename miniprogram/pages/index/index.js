@@ -4,7 +4,29 @@ Page({
    */
   data: {
     value:'',
-    dataList: []
+    dataList: [],
+    searchC: '',
+    searchList: []
+  },
+  onSearch(event) {
+    this.setData({
+      searchC: event.detail
+    })
+    // 要搜索内容、作者、标题来得到结果 + 模糊查询
+    wx.cloud.callFunction({
+      name:"getSearchIndex",
+      data: {
+        content: this.data.searchC
+      }
+    })
+    .then(res=>{
+      var oldData = this.data.searchList;
+      var newData = oldData.concat(res.result.data);
+      this.setData({
+        searchList: newData
+      })
+      console.log(this.data.searchList);
+    })
   },
   getData(num = 5, page = 0) {
     wx.cloud.callFunction({
