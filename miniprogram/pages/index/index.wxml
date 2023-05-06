@@ -14,3 +14,6 @@
     <van-divider />
   </view>
 </view>
+<view class="release" bindtap="clickRelease">
+  <van-button round type="info">+</van-button>
+</view>

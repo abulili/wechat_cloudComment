@@ -5,7 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    inputVal: ""
+  },
+  cancel() {
+    wx.navigateBack({
+      delta: 1
+    })
+  },
+  submit(e) {
+    console.log(this.data.inputVal);
+    
+  },
+  bindTextAreaBlur(e) {
+    this.setData({
+      inputVal:e.detail.value
+    }) 
   },
 
   /**

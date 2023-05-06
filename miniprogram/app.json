@@ -6,7 +6,8 @@
     "pages/chat/chat",
     "pages/content/content",
     "pages/add/add",
-    "pages/self/self"
+    "pages/self/self",
+    "pages/serachIndex/serachIndex"
   ],
   "tabBar": {
     "custom": true,

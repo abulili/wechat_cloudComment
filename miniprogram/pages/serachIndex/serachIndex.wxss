@@ -4,8 +4,3 @@
 .news {
   height: auto;
 }
-.release {
-  position: fixed;
-  top: 75%;
-  right: 5%;
-}

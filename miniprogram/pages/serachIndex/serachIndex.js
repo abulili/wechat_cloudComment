@@ -1,41 +1,29 @@
+// pages/serachIndex/serachIndex.js
 Page({
+
   /**
    * 页面的初始数据
    */
   data: {
-    value:'',
-    dataList: [],
     searchC: '',
-    searchList: []
+    searchList:[]
   },
-  onSearch(event) {
-    this.setData({
-      searchC: event.detail
-    })
-    
-    wx.navigateTo({
-      url: '../serachIndex/serachIndex?searchC=' + this.data.searchC
-    }) 
-  },
-  getData(num = 5, page = 0) {
+  getData() {
+    //到时候添一个loading
+    // 要搜索内容、作者、标题来得到结果 + 模糊查询
     wx.cloud.callFunction({
-      name: "getMessageMain",
+      name:"getSearchIndex",
       data: {
-        contentId: ""
+        content: this.data.searchC
       }
     })
     .then(res=>{
-      // console.log(res.result.data)
-      var oldData = this.data.dataList;
+      var oldData = this.data.searchList;
       var newData = oldData.concat(res.result.data);
       this.setData({
-        dataList: newData
+        searchList: newData
       })
     })
-  },
-  onChange(event) {
-    // event.detail 为当前输入的值
-    console.log(event.detail);
   },
   clickRow(res) {
     var {authorid, id} = res.currentTarget.dataset;
@@ -43,63 +31,63 @@ Page({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid
     })
   },
-  clickRelease() {
-    wx.navigateTo({
-      url: '../add/add'
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
+    this.setData({
+      searchC: options.searchC
+    })
     this.getData();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    
+  onPullDownRefresh() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage() {
+
   }
 })
