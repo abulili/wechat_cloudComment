@@ -13,8 +13,19 @@ Page({
     })
   },
   submit(e) {
-    console.log(this.data.inputVal);
-    
+    var content = this.data.inputVal;
+    wx.cloud.callFunction({
+      name: "addMessageMain",
+      data: {
+        authorID: "temp",
+        authorName:"temp",
+        content:content
+      }
+    }).then(res=>{
+      wx.navigateBack({
+        delta: 1
+      })
+    })
   },
   bindTextAreaBlur(e) {
     this.setData({

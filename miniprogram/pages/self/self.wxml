@@ -4,6 +4,6 @@
   <van-col span="7"> <image mode="aspectFill" lazy-load src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg"></image></van-col>
   </van-row>
   <van-cell title="用户名" value="内容" label="描述信息" border="{{ false }}" />
-  <van-cell title="我的贴子" value="内容" label="描述信息" border="{{ false }}" />
+  <van-cell title="我的贴子" value="内容" label="描述信息" border="{{ false }}" bindtap="myHistory"/>
   <van-cell title="去吐槽" value="内容" label="描述信息" border="{{ false }}" />
 </van-cell-group>

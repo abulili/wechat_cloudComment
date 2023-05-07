@@ -7,7 +7,8 @@
     "pages/content/content",
     "pages/add/add",
     "pages/self/self",
-    "pages/serachIndex/serachIndex"
+    "pages/serachIndex/serachIndex",
+    "pages/myHistory/myHistory"
   ],
   "tabBar": {
     "custom": true,

@@ -1,4 +1,4 @@
-// pages/self/self.js
+// pages/myHistory/myHistory.js
 Page({
 
   /**
@@ -6,11 +6,6 @@ Page({
    */
   data: {
 
-  },
-  myHistory() {
-    wx.navigateTo({
-      url: '../myHistory/myHistory'
-    })
   },
 
   /**
