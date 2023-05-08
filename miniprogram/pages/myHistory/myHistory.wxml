@@ -1,2 +1,7 @@
-<!--pages/myHistory/myHistory.wxml-->
-<text>pages/myHistory/myHistory.wxml</text>
+<view class="container">
+  <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}" wx:for="{{contentList}}" class="news">
+    <view class="header">{{item.title}}<span>{{item.time.substr(0, 10)}}</span></view>
+    <view>{{item.content}}<image src="" mode=""/></view>
+    <van-divider />
+  </view>
+</view>

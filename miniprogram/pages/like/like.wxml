@@ -1,8 +1,8 @@
 <view class="container">
-  <view wx:for="{{5}}">
+  <view wx:for="{{contentList}}">
   <van-cell-group>
-  <van-cell title="作者" value="时间" />
-  <van-cell title="内容" value="内容" label="tag" border="{{ false }}" />
+  <van-cell title="作者" value="{{item.authorName}}" />
+  <van-cell title="内容" value="{{item.content}}" label="tag" border="{{ false }}" />
 </van-cell-group>
 <van-divider hairline />
 </view>

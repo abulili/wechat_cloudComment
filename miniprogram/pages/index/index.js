@@ -21,7 +21,8 @@ Page({
     wx.cloud.callFunction({
       name: "getMessageMain",
       data: {
-        contentId: ""
+        contentId: "",
+        authorID: ""
       }
     })
     .then(res=>{

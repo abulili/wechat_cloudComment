@@ -7,10 +7,17 @@ const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
   var contentId = event.contentId;
-  if(contentId == "") {
+  var authorID = event.authorID;
+  if(contentId == "" && authorID == "") {
     return await db.collection("messageMain").get()
   }
+  else if(authorID == "")
+    return await db.collection("messageMain")
+    .doc(contentId)
+    .get()
   return await db.collection("messageMain")
-  .doc(contentId)
+  .where({
+    authorID:authorID
+  })
   .get()
 }

@@ -17,10 +17,10 @@
 <view class="things">
   <van-row gutter="60">
     <van-col span="6">
-      <van-icon name="share" />
+      <van-icon name="share" bindtap="onShareAppMessage"/>
     </van-col>
     <van-col span="6">
-      <van-icon name="smile-comment" />
+      <van-icon name="smile-comment" bindtap=""/>
     </van-col>
     <van-col span="6">
       <van-icon name="star" />
@@ -31,10 +31,21 @@
   </van-row>
 </view>
 <view>
-  <van-cell-group>
-    <van-field value="{{ value }}" placeholder="请输入评论" border="{{ false }}" bind:change="onChange" custom-style="border: 1px solid #eee; border-radius: 8%; width:95%;display: table;margin: 0 auto;" />
-  </van-cell-group>
-  <button>csc</button>
+    <van-cell-group>
+    <van-field
+      value="{{ sms }}"
+      center
+      clearable
+      label=""
+      placeholder="来发表评论吧"
+      border="{{ false }}"
+      use-button-slot
+    >
+    <van-button slot="button" size="small" type="primary">
+      发送
+    </van-button>
+  </van-field>
+</van-cell-group>
 </view>
 <view>
   <view>

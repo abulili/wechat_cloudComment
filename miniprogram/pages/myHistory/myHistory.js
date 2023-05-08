@@ -5,16 +5,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    contentList:[]
+  },
+  getdata() {
+    wx.cloud.callFunction({
+      name: "getMessageMain",
+      data: {
+        contentId: "",
+        authorID: "0d87e4aa644b174e000229f72192d010"
+      }
+    })
+    .then(res=>{
+      var oldData = this.data.contentList;
+      var newData = oldData.concat(res.result.data);
+      this.setData({
+        contentList: newData
+      })
+    })
+  },
+  clickRow(res) {
+    var {authorid, id} = res.currentTarget.dataset;
+    wx.navigateTo({
+      url: '../content/content?contentId=' + id + '&authorID=' + authorid
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
+  
   onLoad(options) {
-
+    this.getdata();
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

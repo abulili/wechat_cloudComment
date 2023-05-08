@@ -1,1 +1,6 @@
-/* pages/myHistory/myHistory.wxss */
+.container {
+  margin-bottom: 120rpx;
+}
+.news {
+  height: auto;
+}
