@@ -6,17 +6,11 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  var contentId = event.contentId;
-  var userId =  event.userId;
-  var content = event.content;
-  return await db.collection("messagePart")
-  .add({
+  return await db.collection('userlist')
+  .doc("d9c7841e644b13560001959123456f5c")
+  .update({
     data: {
-      content: content,
-      contentId: contentId,
-      time: new Date(),
-      userId: userId
+      userStar: _.pop()
     }
   })
-
 }

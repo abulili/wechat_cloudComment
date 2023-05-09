@@ -27,3 +27,9 @@
 .otherSmallComment {
   margin-left: 50rpx;
 }
+.goodJob_checked, .star_checked, .share_checked{
+  color: aqua;
+}
+.normal {
+  color: #000;
+}

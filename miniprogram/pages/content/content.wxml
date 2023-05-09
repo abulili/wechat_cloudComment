@@ -15,33 +15,31 @@
   {{item.content}}
 </view>
 <view class="things">
-  <van-row gutter="60">
-    <van-col span="6">
-      <van-icon name="share" bindtap="onShareAppMessage"/>
+  <van-row gutter="24">
+    <van-col span="10">
+      <van-icon name="share" bindtap="onShareAppMessage" class="{{isChecked?'share_checked':'normal'}}" />
     </van-col>
-    <van-col span="6">
-      <van-icon name="smile-comment" bindtap=""/>
+    <van-col span="10">
+      <van-icon name="star" class="{{starChecked?'star_checked':'normal'}}" bindtap="starMessage"/>
     </van-col>
-    <van-col span="6">
-      <van-icon name="star" />
-    </van-col>
-    <van-col span="6">
-      <van-icon name="good-job" />
+    <van-col span="0">
+      <van-icon name="good-job" class="{{goodJobChecked?'goodJob_checked':'normal'}}" bindtap="goodJob"/>
     </van-col>
   </van-row>
 </view>
 <view>
     <van-cell-group>
     <van-field
-      value="{{ sms }}"
+      value="{{inputVal}}"
       center
       clearable
       label=""
       placeholder="来发表评论吧"
       border="{{ false }}"
       use-button-slot
+      bindinput="bindText"
     >
-    <van-button slot="button" size="small" type="primary">
+    <van-button slot="button" size="small" type="primary" bindtap="submit">
       发送
     </van-button>
   </van-field>
@@ -51,12 +49,12 @@
   <view>
     按热度 按时间
   </view>
-  <view class="otherComment" wx:for="{{3}}">
-    <view>
+  <view class="otherComment">
+    <view  wx:for="{{commentList}}">
       <view class="headerLeft">
         <image mode="aspectFill" src="https://z3.ax1x.com/2021/03/31/ckVNT0.jpg"></image>
       </view>
-      <view class="headerRight" wx:for="{{commentList}}">
+      <view class="headerRight">
         <view>
           用户小里
         </view>
@@ -75,7 +73,7 @@
          </view>
         </view>
       </view>
+      <van-divider />
     </view>
-  <van-divider />
   </view>
 </view>
