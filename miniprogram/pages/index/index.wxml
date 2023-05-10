@@ -13,6 +13,8 @@
     <view>{{item.content}}<image src="" mode=""/></view>
     <van-divider />
   </view>
+  <span>到底啦</span>
+  <view style="height: 80rpx;"></view>
 </view>
 <view class="release" bindtap="clickRelease">
   <van-button round type="info">+</van-button>

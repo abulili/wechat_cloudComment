@@ -1,19 +1,22 @@
 <view class="container">
   <view>
-  <van-swipe-cell right-width="{{ 65 }}">
-    <van-cell-group>
-      <van-cell title="系统信息" value="有未读消息，要判断一下" ></van-cell>
-    </van-cell-group>
-    <view slot="right">删除</view>
-  </van-swipe-cell>
-</view>
-<view wx:for="{{5}}" bindtap="clickRow">
-  <van-swipe-cell right-width="{{ 65 }}">
-    <van-cell-group>
-      <van-cell title="批发小子" value="有未读消息，要判断一下" ></van-cell>
-    </van-cell-group>
-    <view slot="right">删除</view>
-  </van-swipe-cell>
-</view>
-
+    <van-swipe-cell right-width="{{ 65 }}">
+      <van-cell-group>
+        <van-cell title="系统信息" value="{{notice}}" ></van-cell>
+      </van-cell-group>
+      <view slot="right">删除</view>
+    </van-swipe-cell>
+  </view>
+  <view>
+    <view wx:for="{{messageList}}" wx:key="index1">
+    编号：第{{index + 1}}个帖子
+      <van-swipe-cell right-width="{{ 65 }}" wx:for="{{item}}" wx:key="index2"  >
+        <van-cell-group bindtap="clickRow"data-contentId="{{item.contentId}}">
+          <van-cell title="回复内容" value="{{item.content}}"></van-cell>
+        </van-cell-group>
+      <view slot="right" bindtap="del" data-id="{{item._id}}">删除</view>
+      </van-swipe-cell>
+    </view>
+  </view>
+  <view style="height: 80rpx;"></view>
 </view>

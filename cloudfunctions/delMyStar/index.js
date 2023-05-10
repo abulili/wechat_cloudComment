@@ -6,11 +6,23 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await db.collection('userlist')
-  .doc("d9c7841e644b13560001959123456f5c")
-  .update({
-    data: {
-      userStar: _.pop()
-    }
-  })
+  var cnt = event.cnt;
+  if(cnt == undefined || cnt === "") {
+    return await db.collection('userlist')
+    .doc("d9c7841e644b13560001959123456f5c")
+    .update({
+      data: {
+        userStar: _.pop()
+      }
+    })
+  }
+  else {
+    return await  db.collection('userlist')
+    .doc('d9c7841e644b13560001959123456f5c')
+    .update({
+        data: {
+          userStar: _.pull(cnt)
+        }
+      })
+  }
 }

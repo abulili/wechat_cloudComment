@@ -1,10 +1,11 @@
 <view class="container">
-  <van-swipe-cell right-width="{{ 65 }}" wx:for="{{contentList}}">
+  <van-swipe-cell right-width="{{ 65 }}" wx:for="{{contentList}}" wx:key="index">
   <van-cell-group >
-  <van-cell title="作者" value="{{item.authorName}}" />
-  <van-cell title="内容" value="{{item.content}}" label="tag" border="{{ false }}" />
-</van-cell-group>
-<view slot="right">删除</view>
-<van-divider hairline />
-</van-swipe-cell>
+    <van-cell title="作者" value="{{item.authorName}}" />
+    <van-cell title="内容" value="{{item.content}}" label="tag" border="{{ false }}" />
+  </van-cell-group>
+  <view slot="right" bindtap="del" data-id="{{index}}">删除</view>
+  <van-divider />
+  </van-swipe-cell> 
+  <view style="height: 80rpx;"></view>
 </view>

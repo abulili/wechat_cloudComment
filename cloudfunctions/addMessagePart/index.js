@@ -15,7 +15,8 @@ exports.main = async (event, context) => {
       content: content,
       contentId: contentId,
       time: new Date(),
-      userId: userId
+      userId: userId,
+      readed: false
     }
   })
 

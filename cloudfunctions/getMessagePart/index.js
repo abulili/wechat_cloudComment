@@ -7,9 +7,20 @@ const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
   var contentId = event.contentId;
-  return await db.collection("messagePart")
-  .where({
-    contentId: _.eq(contentId)
-  })
-  .get()
+  var readed = event.readed;
+  if(readed == "readed") {
+    return await db.collection("messagePart")
+    .where({
+      contentId: contentId,
+      readed: false
+    })
+    .get()
+  }
+  else {
+    return await db.collection("messagePart")
+    .where({
+      contentId: _.eq(contentId)
+    })
+    .get()
+  }
 }

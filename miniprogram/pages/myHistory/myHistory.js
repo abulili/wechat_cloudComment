@@ -29,6 +29,20 @@ Page({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid
     })
   },
+  del(res) {
+    // 这个没用户暂时测试不了，到时候写了登录再测试
+    var _id = res.currentTarget.dataset.id;
+    console.log(_id);
+    wx.cloud.callFunction({
+      name: "delMessageMain",
+      data: {
+        _id: _id
+      }
+    })
+    .then(res=>{
+      //对页面刷新
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载

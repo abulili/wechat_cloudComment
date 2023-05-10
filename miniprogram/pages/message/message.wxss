@@ -10,5 +10,5 @@
   background-color: #f44;
 }
 .container {
-  margin-bottom: 120rpx;
+  margin-bottom: 20rpx;
 }

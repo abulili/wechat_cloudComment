@@ -49,6 +49,19 @@ Page({
       contentList: this.data.contentList
     });
   },
+  del(res) {
+    var cnt = res.currentTarget.dataset.id;
+    wx.cloud.callFunction({
+      name: "delMyStar",
+      data: {
+        cnt: cnt
+      }
+    })
+    .then(res=>{
+      //对页面刷新
+      console.log("?");
+    })
+  },
   
 
   /**

@@ -1,10 +1,11 @@
 <view class="container">
-  <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}" wx:for="{{contentList}}" class="news">
+  <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}" wx:for="{{contentList}}" class="news" wx:key="index">
     <van-swipe-cell right-width="{{ 65 }}">
-      <view class="header">{{item.title}}<span>{{item.time.substr(0, 10)}}</span></view>
+      <view class="header">{{item.title}}<span>{{item.time}}</span></view>
       <view>{{item.content}}<image src="" mode=""/></view>
-    <view slot="right">删除</view>
+    <view slot="right" bindtap="del" data-id="{{item._id}}">删除</view>
   </van-swipe-cell>
     <van-divider />
   </view>
+  <view style="height: 80rpx;"></view>
 </view>
