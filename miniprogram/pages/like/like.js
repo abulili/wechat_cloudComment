@@ -32,6 +32,11 @@ Page({
    */
   
   onLoad(options) {
+    if(typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        active: 1
+      })
+    }
     this.getdata();
   },
   async loadMyStar() {
@@ -75,7 +80,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    
   },
 
   /**

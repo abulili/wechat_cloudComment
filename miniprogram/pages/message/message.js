@@ -25,6 +25,14 @@ Page({
       }
     })
   },
+  btn() {
+    wx.cloud.callFunction({
+      name: "getWxContent"
+    })
+    .then(res=> {
+      console.log(res);
+    })
+  },
   getData() {
     // 到时候再统一下发消息，还不会，再说，先用数据库
     //遍历已有的帖子看回复为true的
@@ -53,6 +61,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    if(typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({
+        active: 2
+      })
+    }
     this.getData()
   },
   async loadMyMessage() {

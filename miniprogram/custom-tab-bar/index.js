@@ -29,7 +29,6 @@ Component({
       wx.switchTab({
         url: this.data.url[page]
       }).then(res=>{
-        
         wx.hideLoading()
       })
       // this.setData({ active: page}) 
