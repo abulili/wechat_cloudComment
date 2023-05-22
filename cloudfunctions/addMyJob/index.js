@@ -6,20 +6,17 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
+  //对数组进行添加 没有解决重复字段
   var contentId = event.contentId;
-  var userId =  event.userId;
-  var content = event.content;
-  var userName = event.userName;
-  return await db.collection("messagePart")
-  .add({
+  var _id = event.userID;
+  return await db.collection("userlist")
+  .where({
+    _id: _.eq(_id)
+  })
+  .update({
     data: {
-      content: content,
-      contentId: contentId,
-      time: new Date(),
-      userId: userId,
-      readed: false,
-      userName: userName
+      // 咋感觉没用，是又延迟了吗
+      goodJob: _.addToSet(contentId)
     }
   })
-
 }

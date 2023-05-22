@@ -7,13 +7,15 @@ Page({
   data: {
     notice: '暂无',
     contentList: [],
-    messageList: []
+    messageList: [],
+    openid:'',
+    authorID: ''
   },
   clickRow(res) {
     var contentid = res.currentTarget.dataset.contentid;
     // console.log(contentid)
     wx.navigateTo({
-      url: '../content/content?contentId=' + contentid + '&authorID=' + "0d87e4aa644b174e000229f72192d010"
+      url: '../content/content?contentId=' + contentid + '&authorID=' + this.data.authorID
     })
   },
   del(res) {
@@ -25,37 +27,47 @@ Page({
       }
     })
   },
-  btn() {
-    wx.cloud.callFunction({
-      name: "getWxContent"
-    })
-    .then(res=> {
-      console.log(res);
-    })
-  },
   getData() {
     // 到时候再统一下发消息，还不会，再说，先用数据库
     //遍历已有的帖子看回复为true的
-
-    // 先看他发了哪些帖子得到contentid
+    console.log(this.data.openid)
     wx.cloud.callFunction({
-      name: "getMessageMain",
+      name: 'getUser',
       data: {
-        contentId: "",
-        authorID: "0d87e4aa644b174e000229f72192d010"
+        authorID: '',
+        openid: this.data.openid
       }
     })
     .then(res=>{
-      var oldData = this.data.contentList;
-      var newData = oldData.concat(res.result.data);
       this.setData({
-        contentList: newData
+        authorID: res.result.data[0]._id
+      })
+      // console.log(res)
+    })
+    .then(res=>{
+      // 先看他发了哪些帖子得到contentid
+      wx.cloud.callFunction({
+        name: "getMessageMain",
+        data: {
+          contentId: "",
+          authorID: this.data.authorID
+        }
+      })
+      .then(res=>{
+        console.log(this.data.authorID)
+        var oldData = this.data.contentList;
+        var newData = oldData.concat(res.result.data);
+        this.setData({
+          contentList: newData
+        })
+        console.log(newData);
+      })
+      .then(res=> {
+        // 遍历得到帖子的id
+        this.loadMyMessage()
       })
     })
-    .then(res=> {
-      // 遍历得到帖子的id
-      this.loadMyMessage()
-    })
+    
   },
   /**
    * 生命周期函数--监听页面加载
@@ -66,7 +78,26 @@ Page({
         active: 2
       })
     }
-    this.getData()
+    wx.cloud.callFunction({
+      name: "getWxContent"
+    })
+    .then(res=> {
+      console.log(res);
+      this.setData({
+        openid:res.result.openid
+      })
+    })
+    .then(res=>{
+      console.log(this.data.openid);
+      // 怎么这句判断没用，自动登录了好像
+      if(this.data.openid == undefined)
+      wx.switchTab({
+        url: '/pages/self/self'
+      })
+      else {
+        this.getData()
+      }
+    })
   },
   async loadMyMessage() {
     for (const element of this.data.contentList) {
@@ -83,13 +114,12 @@ Page({
     this.setData({
       messageList: this.data.messageList
     });
-    console.log(this.data.messageList)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
+    
   },
 
   /**
@@ -127,10 +157,4 @@ Page({
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
-  }
 })

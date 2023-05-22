@@ -6,7 +6,14 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
+  var openid = event.openid;
   return await db.collection("userlist")
-  .doc("d9c7841e644b13560001959123456f5c")
+  .where({
+    openid: _.eq(openid)
+  })
+  .field({
+    _id:false,
+    userStar: true
+  })
   .get()
 }

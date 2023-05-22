@@ -20,7 +20,3 @@
   </view>
   <view style="height: 80rpx;"></view>
 </view>
-
-<view bindtap="btn">
-  adsssd
-</view>

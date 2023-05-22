@@ -8,14 +8,15 @@ const _ = db.command;
 exports.main = async (event, context) => {
   //对数组进行添加 没有解决重复字段
   var contentId = event.contentId;
+  var _id = event.userID;
   return await db.collection("userlist")
   .where({
-    _id: _.eq("d9c7841e644b13560001959123456f5c")
+    _id: _.eq(_id)
   })
   .update({
     data: {
       // 咋感觉没用，是又延迟了吗
-      userStar: _.addToSet("2cc84e26644b254d0a75f8890cf4e366")
+      userStar: _.addToSet(contentId)
     }
   })
 }

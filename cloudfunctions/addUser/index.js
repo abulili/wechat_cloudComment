@@ -6,8 +6,15 @@ const db = cloud.database();
 const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
-  var _id = event._id;
-  return await  db.collection('messageMain')
-    .doc(_id)
-    .remove()
+  var openid = event.openid;
+  return await db.collection('userlist').add({
+    data: {
+      admin: false,
+      goodJob: [],
+      openid: openid,
+      userImg: '',
+      userName: '默认昵称',
+      userStar: []
+    }
+  })
 }

@@ -22,11 +22,12 @@ Page({
       name: "getMessageMain",
       data: {
         contentId: "",
-        authorID: ""
+        authorID: "",
+        index: 'index'
       }
     })
     .then(res=>{
-      // console.log(res.result.data)
+      console.log(res.result.data)
       var oldData = this.data.dataList;
       var newData = oldData.concat(res.result.data);
       this.setData({
@@ -53,7 +54,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getData();
+    // this.getData();
   },
 
   /**
@@ -67,6 +68,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      dataList: []
+    })
+    this.getData()
   },
 
   /**

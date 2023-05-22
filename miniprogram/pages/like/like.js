@@ -6,24 +6,39 @@ Page({
    */
   data: {
     starList:[],
-    contentList:[]
+    contentList:[],
+    openid: '',
+    userId: ''
   },
   getdata() {
     wx.cloud.callFunction({
-      name: "getMyStar",
-      data: {
-        _id: "2cc84e26644b13c40a748fae22cc8c02"
-      }
-    })
-    .then(res=>{
-      var oldData = this.data.starList;
-      var newData = oldData.concat(res.result.data.userStar);
-      this.setData({
-        starList: newData
-      })
+      name: "getWxContent"
     })
     .then(res=> {
-      this.loadMyStar();
+      console.log(res);
+      this.setData({
+        openid:res.result.openid
+      })
+    })
+    .then(res=>{
+      wx.cloud.callFunction({
+        name: "getMyStar",
+        data: {
+          openid: this.data.openid
+        }
+      })
+      .then(res=>{
+        console.log(res);
+        var oldData = this.data.starList;
+        var newData = oldData.concat(res.result.data[0].userStar);
+        this.setData({
+          starList: newData
+        })
+        console.log(this.data.starList)
+      })
+      .then(res=> {
+        this.loadMyStar();
+      })
     })
   },
 
@@ -37,10 +52,16 @@ Page({
         active: 1
       })
     }
+    if(this.data.openid == undefined) 
+    wx.switchTab({
+      url: '../self/self'
+    })
+    else
     this.getdata();
   },
   async loadMyStar() {
     for (const element of this.data.starList) {
+        console.log(element)
       const res = await wx.cloud.callFunction({
         name: "getMessageMain",
         data: {
@@ -64,7 +85,11 @@ Page({
     })
     .then(res=>{
       //对页面刷新
-      console.log("?");
+      this.setData({
+        contentList: [],
+        starList:[]
+      })
+      this.getdata()
     })
   },
   

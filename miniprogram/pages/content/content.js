@@ -13,11 +13,45 @@ Page({
     dataList: [],
     commentList: [],
     authorID: '',
+    userID: '',
+    jobList: [],
+    starList: [],
     userList: [],
     partList: [],
-    inputVal: ''
+    inputVal: '',
+    openid: '',
+    usserName: ''
   },
   getData() {
+    // 当前登录用户
+    wx.cloud.callFunction({
+      name: "getWxContent"
+    })
+    .then(res=> {
+      this.setData({
+        openid:res.result.openid
+      })
+    })
+    .then(res=>{
+      wx.cloud.callFunction({
+        name: 'getUser',
+        data: {
+          authorID: '',
+          openid: this.data.openid
+        }
+      })
+      .then(res=>{
+        this.setData({
+          userID: res.result.data[0]._id,
+          jobList: res.result.data[0].goodJob,
+          starList: res.result.data[0].userStar,
+          userName: res.result.data[0].userName
+        })
+        // console.log(res.result.data[0].goodJob);
+        this.juedge();
+      })
+    })
+    // 当前的内容
     wx.cloud.callFunction({
       name: "getMessageMain",
       data: {
@@ -32,7 +66,6 @@ Page({
         dataList: newData
       })
     })
-    
     wx.cloud.callFunction({
       name: "getUser",
       data: {
@@ -60,6 +93,8 @@ Page({
       this.setData({
         commentList: newData
       })
+      // 又要查
+      console.log(this.data.commentList);
     })
     // 来分part，也可以偷懒查看更多恢复，还是要查，或者联合...
     //先弄一两条放在这里判断，点了更多回复再另一个数据库查询
@@ -74,13 +109,17 @@ Page({
   submit(e) {
     var content = this.data.inputVal;
     var contentId = this.data.contentId;
-    var userId =  "d9c7841e644b13560001959123456f5c";
+    var userId =  this.data.userID;
+    var userName = this.data.userName;
+    console.log(contentId + ' ' + userId + ' ' + userName);
+    console.log(userId);
     wx.cloud.callFunction({
       name: "addMessagePart",
       data: {
-        userId:"d9c7841e644b13560001959123456f5c",
+        userId:userId,
         contentId:contentId,
-        content: content
+        content: content,
+        userName: userName
       }
     })
     //刷新页面 告诉说成功了
@@ -97,10 +136,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+
     this.setData({
       contentId: options.contentId,
       authorID: options.authorID
     })
+    // console.log(this.data.authorID)
     this.getData();
     //在一开始的时候就去看他有没有收藏
   },
@@ -112,6 +153,7 @@ Page({
       wx.cloud.callFunction({
         name: "addMyStar",
         data: {
+          userID: this.data.userID,
           contentId: this.data.contentId
         }
       })
@@ -124,7 +166,8 @@ Page({
       wx.cloud.callFunction({
         name: "delMyStar",
         data: {
-          contentId: this.data.contentId
+          contentId: this.data.contentId,
+          userID: this.data.userID
         }
       })
     }
@@ -135,10 +178,25 @@ Page({
       this.setData({
         goodJobChecked: false
       })
+      wx.cloud.callFunction({
+        name: "delMyJob",
+        data: {
+          contentId: this.data.contentId,
+          userID: this.data.userID
+        }
+      })
+      
     }
     else {
       this.setData({
         goodJobChecked: true
+      })
+      wx.cloud.callFunction({
+        name: "addMyJob",
+        data: {
+          contentId: this.data.contentId,
+          userID: this.data.userID
+        }
       })
     }
     
@@ -150,12 +208,33 @@ Page({
   onReady() {
 
   },
-
+  juedge() {
+    // 判断是否点了赞和评论了 - 当前登录用户
+    if(this.data.jobList.indexOf(this.data.contentId) == -1) {
+      this.setData({
+        goodJobChecked: false
+      })
+    }
+    else {
+      this.setData({
+        goodJobChecked: true
+      })
+    }
+    if(this.data.starList.indexOf(this.data.contentId) == -1) {
+      this.setData({
+        starChecked: false
+      })
+    }
+    else {
+      this.setData({
+        starChecked: true
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
   },
 
   /**
@@ -189,7 +268,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage(res){
+  onShare() {
     this.setData({
       isChecked: true
      })
@@ -199,5 +278,9 @@ Page({
         isChecked: false
        })
     }, 1000)
+    this.onShareAppMessage();
+  },  
+  onShareAppMessage(res){
+    
   }
 })

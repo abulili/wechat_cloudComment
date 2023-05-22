@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    contentList:[]
+    contentList:[],
+    authorID: '',
+    admin: false
   },
   getdata() {
+    var index = '';
+    if(this.data.admin === true) index = 'index';
     wx.cloud.callFunction({
       name: "getMessageMain",
       data: {
         contentId: "",
-        authorID: "0d87e4aa644b174e000229f72192d010"
+        authorID: this.data.authorID,
+        index: index
       }
     })
     .then(res=>{
@@ -41,6 +46,10 @@ Page({
     })
     .then(res=>{
       //对页面刷新
+      this.setData({
+        contentList:[]
+      })
+      this.getdata()
     })
   },
 
@@ -49,6 +58,10 @@ Page({
    */
   
   onLoad(options) {
+    this.setData({
+      authorID: options.userId,
+      admin: options.admin
+    })
     this.getdata();
   },
   /**

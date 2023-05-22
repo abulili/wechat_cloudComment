@@ -7,6 +7,12 @@ Page({
   data: {
     code: '',
     avatarUrl: defaultAvatarUrl,
+    loginStatus: '登录',
+    username: '默认昵称',
+    openid: '',
+    userId: '',
+    focus: false,
+    admin: false
   },
   onChooseAvatar(e) {
     const { avatarUrl } = e.detail 
@@ -15,28 +21,25 @@ Page({
     })
   },
   myHistory() {
+    if(this.data.openid == undefined) 
+    wx.switchTab({
+      url: '../self/self'
+    })
+    else 
     wx.navigateTo({
-      url: '../myHistory/myHistory'
+      url: '../myHistory/myHistory?userId=' + this.data.userId + '&admin=' + this.data.admin
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
     if(typeof this.getTabBar === 'function' && this.getTabBar()) {
       this.getTabBar().setData({
         active: 3
@@ -57,17 +60,86 @@ Page({
       }
     })
   },
-  btn(){
-    // 暂时不需要UnionID
+  loginShow() {
+  // 连数据库查
+  wx.cloud.callFunction({
+    name: 'getUser',
+    data: {
+      openid: this.data.openid
+    }
+  })
+  .then(res=>{
+    console.log(res.result.data);
+    if(res.result.data == '') {
+      wx.cloud.callFunction({
+        name: 'addUser',
+        data: {
+          openid: this.data.openid
+        }
+      })
+      .then(res=>{
+        wx.cloud.callFunction({
+          name: 'getUser',
+          data: {
+            openid: this.data.openid
+          }
+        })
+        .then(res=>{
+          this.setData({
+            username:res.result.data[0].userName,
+            userId: res.result.data[0]._id,
+            admin: res.result.data[0].admin
+          })
+          console.log(res.result.data[0]._id)
+        })
+      })
+    }
+    else {
+      this.setData({
+        username:res.result.data[0].userName,
+        userId: res.result.data[0]._id,
+        admin: res.result.data[0].admin
+      })
+    }
+  })
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+    
+  },
+  updateName(event) {
+    this.setData({
+      username: event.detail.value
+    })
     wx.cloud.callFunction({
-      name:'login',
+      name: 'updateUser',
       data: {
-        code: this.data.code
-      },
-      success:res=>{
-        console.log(res);
+        userName: this.data.username,
+        userId: this.data.userId
       }
     })
+  },
+  btn(){
+    // 暂时不需要UnionID
+        var that = this;
+        wx.cloud.callFunction({
+          name:'login',
+          data: {
+            code: that.data.code
+          },
+          success:res=>{
+            console.log(res);
+            that.setData({
+              loginStatus: '已登录',
+              openid: res.result.openid
+            })
+            console.log(that.data.openid);
+            // 连数据库查
+            that.loginShow();
+          }
+        })
   },
 
   /**
@@ -95,13 +167,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
 
   }
 })

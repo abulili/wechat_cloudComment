@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    inputVal: ""
+    inputVal: "",
+    openid: ''
   },
   cancel() {
     wx.navigateBack({
@@ -17,8 +18,8 @@ Page({
     wx.cloud.callFunction({
       name: "addMessageMain",
       data: {
-        authorID: "temp",
-        authorName:"temp",
+        authorID: this.data.authorID,
+        authorName:this.data.authorName,
         content:content
       }
     }).then(res=>{
@@ -38,7 +39,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    
   },
 
   /**
@@ -52,7 +53,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    wx.cloud.callFunction({
+      name: "getWxContent"
+    })
+    .then(res=> {
+      console.log(res);
+      this.setData({
+        openid:res.result.openid
+      })
+    })
+    .then(res=>{
+      wx.cloud.callFunction({
+        name: 'getUser',
+        data: {
+          userId: '',
+          openid: this.data.openid
+        }
+      })
+      .then(res=>{
+        this.setData({
+          authorID: res.result.data[0]._id,
+          authorName:res.result.data[0].userName
+        })
+      })
+    })
   },
 
   /**
@@ -66,7 +90,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+    
   },
 
   /**

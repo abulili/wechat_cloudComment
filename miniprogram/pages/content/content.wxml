@@ -16,14 +16,14 @@
 </view>
 <view class="things">
   <van-row gutter="24">
-    <van-col span="10">
-      <van-icon name="share" bindtap="onShareAppMessage" class="{{isChecked?'share_checked':'normal'}}" />
+    <van-col span="8">
+      <button open-type="share"><van-icon name="share" class="{{isChecked?'share_checked':'normal'}}" /></button>
     </van-col>
-    <van-col span="10">
-      <van-icon name="star" class="{{starChecked?'star_checked':'normal'}}" bindtap="starMessage"/>
+    <van-col span="8">
+      <button bindtap="starMessage"><van-icon name="star" class="{{starChecked?'star_checked':'normal'}}" /></button>
     </van-col>
-    <van-col span="0">
-      <van-icon name="good-job" class="{{goodJobChecked?'goodJob_checked':'normal'}}" bindtap="goodJob"/>
+    <van-col span="8">
+      <button bindtap="goodJob"><van-icon name="good-job" class="{{goodJobChecked?'goodJob_checked':'normal'}}" /></button>
     </van-col>
   </van-row>
 </view>
@@ -56,7 +56,7 @@
       </view>
       <view class="headerRight">
         <view>
-          用户小里
+          {{item.userName}}
         </view>
         <view>
           {{item.time}}

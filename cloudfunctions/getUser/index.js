@@ -7,7 +7,15 @@ const _ = db.command;
 // 云函数入口函数
 exports.main = async (event, context) => {
   var userId = event.authorID;
+  var openid = event.openid;
+  if(userId == '' || userId == undefined)
   return await db.collection("userlist")
-  .doc(userId)
+  .where({
+    openid: _.eq(openid)
+  })
   .get()
+  else 
+    return await db.collection("userlist")
+    .doc(userId)
+    .get()
 }

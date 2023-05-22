@@ -9,14 +9,11 @@
   </button> 
   </van-col>
   </van-row>
-  <van-cell title="用户名"><input type="nickname" class="weui-input" placeholder="默认昵称"/></van-cell>
-  <van-cell title="我的贴子" value="内容" label="描述信息" border="{{ false }}" bindtap="myHistory"/>
-  <van-cell title="去吐槽" value="内容" label="描述信息" border="{{ false }}" />
+  <van-cell title="用户名"><input type="nickname" class="weui-input" value="{{username}}" bindblur="updateName"/></van-cell>
+  <van-cell title="我的贴子" value="点击查看" border="{{ false }}" bindtap="myHistory"/>
+  <van-cell title="去吐槽" border="{{ false }}" />
 </van-cell-group>
-<view bindtap="btn">
-  dianji 
-</view>
-
+<button bindtap="btn">{{loginStatus}}</button>
 
 
 
