@@ -1,4 +1,5 @@
 // pages/myHistory/myHistory.js
+const gets = require('../gets');
 Page({
 
   /**
@@ -10,40 +11,36 @@ Page({
     admin: false
   },
   getdata() {
-    var index = '';
+    let app = getApp();
+    // console.log(app.userId);
+    let index = '';
     if(this.data.admin === true) index = 'index';
-    wx.cloud.callFunction({
-      name: "getMessageMain",
-      data: {
-        contentId: "",
-        authorID: this.data.authorID,
-        index: index
-      }
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.getMessageMain(app.userId,index))
     })
+    Promise1 
     .then(res=>{
-      var oldData = this.data.contentList;
-      var newData = oldData.concat(res.result.data);
+      let oldData = this.data.contentList;
+      let newData = oldData.concat(res.result.data);
       this.setData({
         contentList: newData
       })
     })
   },
   clickRow(res) {
-    var {authorid, id} = res.currentTarget.dataset;
+    let {authorid, id} = res.currentTarget.dataset;
     wx.navigateTo({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid
     })
   },
   del(res) {
     // 这个没用户暂时测试不了，到时候写了登录再测试
-    var _id = res.currentTarget.dataset.id;
+    let _id = res.currentTarget.dataset.id;
     console.log(_id);
-    wx.cloud.callFunction({
-      name: "delMessageMain",
-      data: {
-        _id: _id
-      }
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.delMessageMain(_id))
     })
+    Promise1 
     .then(res=>{
       //对页面刷新
       this.setData({

@@ -1,4 +1,6 @@
 // pages/add/add.js
+const gets = require('../gets');
+var app = getApp();
 Page({
 
   /**
@@ -14,15 +16,20 @@ Page({
     })
   },
   submit(e) {
-    var content = this.data.inputVal;
-    wx.cloud.callFunction({
-      name: "addMessageMain",
-      data: {
-        authorID: this.data.authorID,
-        authorName:this.data.authorName,
-        content:content
-      }
-    }).then(res=>{
+    let content = this.data.inputVal;
+    // wx.cloud.callFunction({
+    //   name: "addMessageMain",
+    //   data: {
+    //     authorID: this.data.authorID,
+    //     authorName:this.data.authorName,
+    //     content:content
+    //   }
+  // })
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.addMessageMain(this.data.authorID,this.data.authorName,content))
+    })
+    Promise1
+    .then(res=>{
       wx.navigateBack({
         delta: 1
       })
@@ -53,30 +60,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    wx.cloud.callFunction({
-      name: "getWxContent"
-    })
-    .then(res=> {
-      console.log(res);
+    // wx.cloud.callFunction({
+    //   name: "getWxContent"
+    // })
+    // .then(res=> {
+    //   console.log(res);
+    //   this.setData({
+    //     openid:res.result.openid
+    //   })
+    // })
+    // .then(res=>{
+      // wx.cloud.callFunction({
+      //   name: 'getUser',
+      //   data: {
+      //     userId: '',
+      //     openid: this.data.openid
+      //   }
+      // })
       this.setData({
-        openid:res.result.openid
+        openid: app.openid,
+        authorID: app.userId,
+        authorName:app.userName
       })
-    })
-    .then(res=>{
-      wx.cloud.callFunction({
-        name: 'getUser',
-        data: {
-          userId: '',
-          openid: this.data.openid
-        }
-      })
-      .then(res=>{
-        this.setData({
-          authorID: res.result.data[0]._id,
-          authorName:res.result.data[0].userName
-        })
-      })
-    })
+      // let Promise1 = new Promise((resolve,reject)=>{
+      //   resolve(gets.getUser('',this.data.openid))
+      // })
+      // Promise1
+      // .then(res=>{
+      //   this.setData({
+      //     authorID: res.result.data[0]._id,
+      //     authorName:res.result.data[0].userName
+      //   })
+      // })
+    // })
   },
 
   /**

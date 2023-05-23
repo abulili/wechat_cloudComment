@@ -1,3 +1,4 @@
+const gets = require('../gets');
 Page({
   /**
    * 页面的初始数据
@@ -18,21 +19,28 @@ Page({
     }) 
   },
   getData(num = 5, page = 0) {
-    wx.cloud.callFunction({
-      name: "getMessageMain",
-      data: {
-        contentId: "",
-        authorID: "",
-        index: 'index'
-      }
+    // wx.cloud.callFunction({
+    //   name: "getMessageMain",
+    //   data: {
+    //     contentId: "",
+    //     authorID: "",
+    //     index: 'index'
+    //   }
+    // })
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.getMessageMain('', 'index'))
     })
+    Promise1
     .then(res=>{
       console.log(res.result.data)
-      var oldData = this.data.dataList;
-      var newData = oldData.concat(res.result.data);
+      let oldData = this.data.dataList;
+      let newData = oldData.concat(res.result.data);
       this.setData({
         dataList: newData
       })
+    })
+    .then(res=>{
+      wx.hideLoading();
     })
   },
   onChange(event) {
@@ -40,7 +48,7 @@ Page({
     console.log(event.detail);
   },
   clickRow(res) {
-    var {authorid, id} = res.currentTarget.dataset;
+    let {authorid, id} = res.currentTarget.dataset;
     wx.navigateTo({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid
     })
@@ -68,10 +76,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.showLoading({
+      title: '加载中',
+    })
     this.setData({
       dataList: []
     })
-    this.getData()
+    this.getData();
+    
   },
 
   /**

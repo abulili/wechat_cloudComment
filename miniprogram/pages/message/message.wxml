@@ -9,7 +9,7 @@
   </view>
   <view>
     <view wx:for="{{messageList}}" wx:key="index1">
-    编号：第{{index + 1}}个帖子
+    <!-- 编号：第{{index + 1}}个帖子 -->
       <van-swipe-cell right-width="{{ 65 }}" wx:for="{{item}}" wx:key="index2"  >
         <van-cell-group bindtap="clickRow"data-contentId="{{item.contentId}}">
           <van-cell title="回复内容" value="{{item.content}}"></van-cell>

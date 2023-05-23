@@ -1,4 +1,6 @@
 // pages/myHistory/myHistory.js
+var app = getApp();
+const gets = require('../gets');
 Page({
 
   /**
@@ -11,26 +13,34 @@ Page({
     userId: ''
   },
   getdata() {
-    wx.cloud.callFunction({
-      name: "getWxContent"
-    })
-    .then(res=> {
-      console.log(res);
+    // wx.cloud.callFunction({
+    //   name: "getWxContent"
+    // })
+    // .then(res=> {
+    //   console.log(res);
+    //   this.setData({
+    //     openid:res.result.openid
+    //   })
+    // })
+    // .then(res=>{
+      wx.showLoading({
+        title: '加载中',
+      })
+      if(app.userId == '') 
+        wx.switchTab({
+          url: '../self/self'
+      })
       this.setData({
-        openid:res.result.openid
+        openid: app.openid
       })
-    })
-    .then(res=>{
-      wx.cloud.callFunction({
-        name: "getMyStar",
-        data: {
-          openid: this.data.openid
-        }
+      let Promise1 = new Promise((resolve,reject)=>{
+        resolve(gets.getMyStar(this.data.openid))
       })
+      Promise1
       .then(res=>{
         console.log(res);
-        var oldData = this.data.starList;
-        var newData = oldData.concat(res.result.data[0].userStar);
+        let oldData = this.data.starList;
+        let newData = oldData.concat(res.result.data[0].userStar);
         this.setData({
           starList: newData
         })
@@ -39,7 +49,10 @@ Page({
       .then(res=> {
         this.loadMyStar();
       })
-    })
+      .then(res=>{
+        wx.hideLoading();
+      })
+    // })
   },
 
   /**
@@ -52,12 +65,6 @@ Page({
         active: 1
       })
     }
-    if(this.data.openid == undefined) 
-    wx.switchTab({
-      url: '../self/self'
-    })
-    else
-    this.getdata();
   },
   async loadMyStar() {
     for (const element of this.data.starList) {
@@ -76,13 +83,11 @@ Page({
     });
   },
   del(res) {
-    var cnt = res.currentTarget.dataset.id;
-    wx.cloud.callFunction({
-      name: "delMyStar",
-      data: {
-        cnt: cnt
-      }
+    let cnt = res.currentTarget.dataset.id;
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.delMyStar(cnt))
     })
+    Promise1
     .then(res=>{
       //对页面刷新
       this.setData({
@@ -105,7 +110,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    
+    this.getdata();
   },
 
   /**

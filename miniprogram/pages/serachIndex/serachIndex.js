@@ -1,4 +1,5 @@
 // pages/serachIndex/serachIndex.js
+const gets = require('../gets')
 Page({
 
   /**
@@ -11,22 +12,20 @@ Page({
   getData() {
     //到时候添一个loading
     // 要搜索内容、作者、标题来得到结果 + 模糊查询
-    wx.cloud.callFunction({
-      name:"getSearchIndex",
-      data: {
-        content: this.data.searchC
-      }
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.getSearchIndex(this.data.searchC))
     })
+    Promise1 
     .then(res=>{
-      var oldData = this.data.searchList;
-      var newData = oldData.concat(res.result.data);
+      let oldData = this.data.searchList;
+      let newData = oldData.concat(res.result.data);
       this.setData({
         searchList: newData
       })
     })
   },
   clickRow(res) {
-    var {authorid, id} = res.currentTarget.dataset;
+    let {authorid, id} = res.currentTarget.dataset;
     wx.navigateTo({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid
     })

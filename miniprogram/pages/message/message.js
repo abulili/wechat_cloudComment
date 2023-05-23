@@ -1,6 +1,7 @@
 // pages/message/message.js
+const gets = require('../gets');
+var app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,51 +13,69 @@ Page({
     authorID: ''
   },
   clickRow(res) {
-    var contentid = res.currentTarget.dataset.contentid;
+    let contentid = res.currentTarget.dataset.contentid;
     // console.log(contentid)
     wx.navigateTo({
       url: '../content/content?contentId=' + contentid + '&authorID=' + this.data.authorID
     })
   },
   del(res) {
-    var _id = res.currentTarget.dataset;
-    wx.cloud.callFunction({
-      name: "updateMessageRead",
-      data: {
-        id: _id
-      }
+    let _id = res.currentTarget.dataset.id;
+    let Promise1 = new Promise((resolve,reject)=>{
+      resolve(gets.updateMessageRead(_id))
+    })
+    Promise1.then(res=>{
+      wx.showToast({
+        title: '已读',
+        icon: 'success',
+        duration: 1500
+      })
     })
   },
   getData() {
     // 到时候再统一下发消息，还不会，再说，先用数据库
     //遍历已有的帖子看回复为true的
-    console.log(this.data.openid)
-    wx.cloud.callFunction({
-      name: 'getUser',
-      data: {
-        authorID: '',
-        openid: this.data.openid
-      }
-    })
-    .then(res=>{
+    // console.log(this.data.openid)
+    // wx.cloud.callFunction({
+    //   name: 'getUser',
+    //   data: {
+    //     authorID: '',
+    //     openid: this.data.openid
+    //   }
+    // })
+    // let Promise1 = new Promise((resolve,reject)=>{
+    //   resolve(gets.getUser('',this.data.openid))
+    // })
+    // Promise1
+    // .then(res=>{
       this.setData({
-        authorID: res.result.data[0]._id
+        authorID: app.userId,
+        openid: app.openid
       })
-      // console.log(res)
-    })
-    .then(res=>{
+      console.log(this.data.authorID)
+      if(this.data.authorID == "") {
+        wx.switchTab({
+          url: '../self/self'
+        })
+      }
+    // })
+    // .then(res=>{
       // 先看他发了哪些帖子得到contentid
-      wx.cloud.callFunction({
-        name: "getMessageMain",
-        data: {
-          contentId: "",
-          authorID: this.data.authorID
-        }
+      // wx.cloud.callFunction({
+      //   name: "getMessageMain",
+      //   data: {
+      //     contentId: "",
+      //     authorID: this.data.authorID
+      //   }
+      // })
+      let Promise1 = new Promise((resolve,reject)=>{
+        resolve(gets.getMessageMain(this.data.authorID,''))
       })
+      Promise1 
       .then(res=>{
         console.log(this.data.authorID)
-        var oldData = this.data.contentList;
-        var newData = oldData.concat(res.result.data);
+        let oldData = this.data.contentList;
+        let newData = oldData.concat(res.result.data);
         this.setData({
           contentList: newData
         })
@@ -66,7 +85,10 @@ Page({
         // 遍历得到帖子的id
         this.loadMyMessage()
       })
-    })
+      .then(res=>{
+        wx.hideLoading()
+      })
+    // })
     
   },
   /**
@@ -78,26 +100,27 @@ Page({
         active: 2
       })
     }
-    wx.cloud.callFunction({
-      name: "getWxContent"
-    })
-    .then(res=> {
-      console.log(res);
-      this.setData({
-        openid:res.result.openid
-      })
-    })
-    .then(res=>{
-      console.log(this.data.openid);
+    // wx.cloud.callFunction({
+    //   name: "getWxContent"
+    // })
+    // .then(res=> {
+    //   console.log(res);
+    //   this.setData({
+    //     openid:res.result.openid
+    //   })
+    // })
+    // .then(res=>{
+      
+      // console.log(app.openid);
       // 怎么这句判断没用，自动登录了好像
-      if(this.data.openid == undefined)
+      if(app.openid == undefined)
       wx.switchTab({
         url: '/pages/self/self'
       })
-      else {
-        this.getData()
-      }
-    })
+      // else {
+      //   this.getData()
+      // }
+    // })
   },
   async loadMyMessage() {
     for (const element of this.data.contentList) {
@@ -114,6 +137,7 @@ Page({
     this.setData({
       messageList: this.data.messageList
     });
+    console.log(this.data.messageList);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -126,7 +150,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    this.setData({
+      contentList:[],
+      messageList: []
+    })
+    wx.showLoading({
+      title: '加载中',
+    })
+    this.getData();
   },
 
   /**

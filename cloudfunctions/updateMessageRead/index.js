@@ -8,9 +8,7 @@ const _ = db.command;
 exports.main = async (event, context) => {
   var id = event.id;
   return await db.collection("messagePart")
-  .where({
-    _id: _.eq("0122a587644b15460a6ddef33bb5a0e7")
-  })
+  .doc(id)
   .update({
     data: {
       readed: true
