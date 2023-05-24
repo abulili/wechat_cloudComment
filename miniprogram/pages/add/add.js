@@ -82,6 +82,11 @@ Page({
         authorID: app.userId,
         authorName:app.userName
       })
+      if(app.userId == "") {
+        wx.switchTab({
+          url: '../self/self',
+        })
+      }
       // let Promise1 = new Promise((resolve,reject)=>{
       //   resolve(gets.getUser('',this.data.openid))
       // })

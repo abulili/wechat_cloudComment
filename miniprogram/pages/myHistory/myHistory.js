@@ -28,6 +28,7 @@ Page({
     })
   },
   clickRow(res) {
+    console.log('点击了');
     let {authorid, id} = res.currentTarget.dataset;
     wx.navigateTo({
       url: '../content/content?contentId=' + id + '&authorID=' + authorid

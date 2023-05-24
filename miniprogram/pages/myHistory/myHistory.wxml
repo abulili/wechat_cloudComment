@@ -1,8 +1,8 @@
 <view class="container">
-  <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}" wx:for="{{contentList}}" class="news" wx:key="index">
-    <van-swipe-cell right-width="{{ 65 }}">
-      <view class="header">{{item.title}}<span>{{item.time}}</span></view>
-      <view>{{item.content}}<image src="" mode=""/></view>
+  <view wx:for="{{contentList}}" class="news" wx:key="index">
+    <van-swipe-cell right-width="{{ 65 }}"  >
+      <view class="header" bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}">{{item.title}}<span>{{item.time}}</span></view>
+      <view bindtap="clickRow" data-id="{{item._id}}" data-authorID="{{item.authorID}}">{{item.content}}<image src="" mode=""/></view>
     <view slot="right" bindtap="del" data-id="{{item._id}}">删除</view>
   </van-swipe-cell>
     <van-divider />

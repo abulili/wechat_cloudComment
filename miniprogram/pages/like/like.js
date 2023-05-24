@@ -54,6 +54,13 @@ Page({
       })
     // })
   },
+  clickRow(res){
+    let {contentid, authorID} = res.currentTarget.dataset;
+    console.log(res.currentTarget.dataset);
+    wx.navigateTo({
+      url: '../content/content?contentId=' + contentid + '&authorID=' + authorID
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -110,6 +117,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.setData({
+      contentList: [],
+      starList: []
+    })
     this.getdata();
   },
 
